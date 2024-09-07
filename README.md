@@ -3,7 +3,7 @@ Features:
 - Adding books
 - Deleting books
 - Display all books (as a list)
-Features to be done:
+#Features to be done:
 - Updating books
 - Filtering and Searching
 - Book API
