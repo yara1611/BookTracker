@@ -21,6 +21,10 @@ export class DataService  {
     return this.afs.doc('/Books/'+book.id).delete();
   }
 
+  getBook(bookId:string){
+   return this.afs.doc('/Books/'+bookId).snapshotChanges();
+  }
+
   updateBook(book:Book){
     this.deleteBook(book);
     this.addBook(book);

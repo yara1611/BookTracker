@@ -4,12 +4,11 @@
             <div class="card border-0 shadow p-3">
               <h5>Add A Book</h5>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingTitle" placeholder="Title" [(ngModel)]="title">
-                    <label for="floatingInput">Title</label>
-                  </div>
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingAuthor" placeholder="Author" [(ngModel)]="author">
-                    <label for="floatingAuthor">Author</label>
+                    <input type="text" class="form-control" id="floatingTitle" placeholder="Title" [(ngModel)]="query" (change)="fetchBook()">
+                    <label for="floatingInput">Book</label>
+                    <select #titles [(ngModel)]="selected" id="floatingInput" class="form-select" aria-label="Default select example">
+                      <option *ngFor="let b of apiBooks" [ngValue]="b.volumeInfo">{{b.volumeInfo.title}}</option>
+                    </select>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="done">
@@ -28,7 +27,6 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            
                             <th scope="col">Title</th>
                             <th scope="col">Author</th>
                             <th scope="col">Read</th>
@@ -36,14 +34,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let book of booksList">
-                            <td>{{book.title}}</td>
-                            <td>{{book.author}}</td>
-                            <td>{{book.done}}</td>
-                            <td><button type="button" class="btn btn-danger" (click)="deleteBook(book)">Delete</button></td>
-                          </tr>
+                            <tr *ngFor="let book of booksList">
+                              <td (click)="getBookInfo(book)">{{book.title}}</td>
+                              <td>{{book.author}}</td>
+                              <td>{{book.done}}</td>
+                              <td><button type="button" class="btn btn-danger" (click)="deleteBook(book)">Delete</button></td>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                 </div>
             </div>
         </div>
