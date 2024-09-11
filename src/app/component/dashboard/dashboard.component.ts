@@ -42,7 +42,8 @@ export class DashboardComponent implements OnInit {
     title: '',
     author: '',
     done: '',
-    pagesRead:0
+    pagesRead:0,
+    apiID:''
   }
 
   resetForm() {
@@ -72,9 +73,10 @@ export class DashboardComponent implements OnInit {
   addBook() {
     
       this.book.id = ''
-      this.book.title = this.selected.title;
-      this.book.author = this.selected.authors;
+      this.book.title = this.selected.volumeInfo.title;
+      this.book.author = this.selected.volumeInfo.authors;
       this.book.done = this.checkRead();
+      this.book.apiID=this.selected.id;
       console.log(this.book.title)
       this.data.addBook(this.book)
       this.resetForm();
@@ -95,19 +97,7 @@ export class DashboardComponent implements OnInit {
 
   getBookInfo(book:Book){
     console.log("getting Books: "+book.id)
-    // this.data.getBook(book).subscribe(
-    //   (snapshot) => {
-    //     if (snapshot.payload.exists) {
-    //       this.bookDetails = snapshot.payload.data();
-          this.router.navigate(['/bookInfo',book.id])
-    //     } else {
-    //       console.log('Book does not exist');
-    //     }
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching book details:', error);
-    //   }
-    // );
+    this.router.navigate(['/bookInfo',book.id])
   }
 
   fetchBook(): void {
@@ -118,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
   onSelected(value:string){
     this.selected=value;
-    console.log(this.selected)
+    console.log(this.selected.volumeInfo)
   }
     
     

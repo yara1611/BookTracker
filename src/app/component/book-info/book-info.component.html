@@ -1,13 +1,18 @@
-<!-- <h2>{{bookDetails.title}}</h2>
-<h3>{{bookDetails.author}}</h3>
-<h3>{{bookDetails.done}}</h3>
-<h3>{{bookDetails.pagesRead}}</h3> -->
-<button (click)="fetchBook()" type="button">Show book</button>
-<div>
-    <h1>Book</h1>
-    <label for="search">title:</label>
-    <input type="text" name="search" id="" [(ngModel)]="query">
+<div class="container">
+    <div class="row row-cols-1" *ngIf="bookDetails && apiBookDetails">
+        <div class="col"><img src="{{apiBookDetails.volumeInfo.imageLinks.smallThumbnail}}" alt="cover" srcset="" style="margin: auto;"></div>
+      <div class="col"><h1>{{bookDetails.title}}</h1></div>
+      <div class="col"><h3>{{bookDetails.author}}</h3></div>
+    </div>
+    <div class="row row-cols-2" *ngIf="bookDetails && apiBookDetails">
+      <div class="col">Read: {{bookDetails.done}}</div>
+      <div class="col">Progress: {{bookDetails.pagesRead}} / {{apiBookDetails.volumeInfo.pageCount}} pages</div>
+    </div>
     <br>
-    
-    
-</div>
+    <div class="row row-cols-2" *ngIf="bookDetails && apiBookDetails">
+        <div class="col"><h5>Description:</h5><p [innerHTML]="apiBookDetails.volumeInfo.description"></p></div>
+      </div>
+  </div>
+
+
+

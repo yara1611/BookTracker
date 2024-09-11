@@ -11,6 +11,9 @@ export class ApiService {
     return this.http.get(
       `https://www.googleapis.com/books/v1/volumes?q=${queryField}&maxResults=39&keyes&key=AIzaSyBaJVF3fvF0xdMRuXH25wDmc9zlSua0kSQ`)
   }
+  getBookById(id:string){
+    return this.http.get(this.baseUrl+id+'?key=AIzaSyBaJVF3fvF0xdMRuXH25wDmc9zlSua0kSQ')
+  }
 }
 
 

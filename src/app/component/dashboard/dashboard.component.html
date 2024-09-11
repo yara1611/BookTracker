@@ -7,7 +7,7 @@
                     <input type="text" class="form-control" id="floatingTitle" placeholder="Title" [(ngModel)]="query" (change)="fetchBook()">
                     <label for="floatingInput">Book</label>
                     <select #titles [(ngModel)]="selected" id="floatingInput" class="form-select" aria-label="Default select example">
-                      <option *ngFor="let b of apiBooks" [ngValue]="b.volumeInfo">{{b.volumeInfo.title}}</option>
+                      <option *ngFor="let b of apiBooks" [ngValue]="b">{{b.volumeInfo.title}}</option>
                     </select>
                   </div>
                   <div class="form-check">
