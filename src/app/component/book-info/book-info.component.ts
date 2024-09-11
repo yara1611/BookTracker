@@ -20,7 +20,6 @@ export class BookInfoComponent {
     this.bookId=this.route.snapshot.paramMap.get('id')||'';
    
     console.log("BookID:"+this.bookId)
-    
     this.loadData();
     
     
@@ -54,7 +53,9 @@ export class BookInfoComponent {
     );
   }
 
-
+  updateBook(){
+   
+  }
 
   
 }

@@ -6,7 +6,7 @@
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingTitle" placeholder="Title" [(ngModel)]="query" (change)="fetchBook()">
                     <label for="floatingInput">Book</label>
-                    <select #titles [(ngModel)]="selected" id="floatingInput" class="form-select" aria-label="Default select example">
+                    <select #titles [(ngModel)]="selected" class="form-select" aria-label="Default select example">
                       <option *ngFor="let b of apiBooks" [ngValue]="b">{{b.volumeInfo.title}}</option>
                     </select>
                   </div>
@@ -21,7 +21,7 @@
             
         </div>
         <div class="col-md-8 mt-5">
-            <h5 class="text-danger">Book List</h5>
+            <h5 class="text-danger">My Books</h5>
             <div class="card p-3">
                 <div class="card-body">
                     <table class="table">
@@ -37,7 +37,7 @@
                             <tr *ngFor="let book of booksList">
                               <td (click)="getBookInfo(book)">{{book.title}}</td>
                               <td>{{book.author}}</td>
-                              <td>{{book.done}}</td>
+                              <td (click)="updateBook(book)">{{book.done}}</td>
                               <td><button type="button" class="btn btn-danger" (click)="deleteBook(book)">Delete</button></td>
                             </tr>
                         </tbody>

@@ -29,4 +29,8 @@ export class DataService  {
     this.deleteBook(book);
     this.addBook(book);
   }
+
+  // duplicates(title:string){
+  //   return this.afs.doc('/Books/'+boo)
+  // }
 }

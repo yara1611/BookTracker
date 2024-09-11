@@ -89,11 +89,6 @@ export class DashboardComponent implements OnInit {
   }
     newTitle:string=''
     newAuthor:string=''
-  updateBook(book:Book){
-    book.title = this.newTitle
-    book.author=this.newAuthor
-    this.data.updateBook(book);
-  }
 
   getBookInfo(book:Book){
     console.log("getting Books: "+book.id)
@@ -104,6 +99,14 @@ export class DashboardComponent implements OnInit {
     this.api.getBooks('intitle:'+this.query).subscribe((data: any) => {
      this.apiBooks=data.items;
     });
+  }
+
+  updateBook(book:Book){
+    if(book.done=="Read")
+      book.done="Not Yet"
+    else
+      book.done="Read";
+    this.data.updateBook(book)
   }
 
   onSelected(value:string){
