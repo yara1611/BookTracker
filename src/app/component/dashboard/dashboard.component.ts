@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../model/Book';
 import { DataService } from '../../shared/data.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../shared/api.service';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,28 +12,34 @@ import { ApiService } from '../../shared/api.service';
 })
 export class DashboardComponent implements OnInit {
   booksList: Book[] = [];
-  bookDetails:any;
-  selected:any;
+  bookDetails: any;
+  selected: any;
   apiBooks: any;
-  query: string='';
-  constructor(private data: DataService,private router:Router, private api:ApiService) { }
+  query: string = '';
+  user: string = '';
+  userID:string='';
+  constructor(private data: DataService, private router: Router, private route: ActivatedRoute, private api: ApiService, private auth: AuthService) { }
   //Fetch
   ngOnInit(): void {
     this.getAllBooks();
     
+    console.log("UserID:"+localStorage.getItem("userID"))
+    this.userID=localStorage.getItem("username")||''
+    this.user=localStorage.getItem('username')||''
+
   }
 
   id: string = '';
   title: string = '';
   author: string = '';
   done: boolean = false;
-  update:boolean=false;
+  update: boolean = false;
 
-  toUpdate(){
-    if(this.update)
-      this.update=true;
+  toUpdate() {
+    if (this.update)
+      this.update = true;
     else
-      this.update=false;
+      this.update = false;
     return this.update;
   }
 
@@ -42,8 +49,9 @@ export class DashboardComponent implements OnInit {
     title: '',
     author: '',
     done: '',
-    pagesRead:0,
-    apiID:''
+    pagesRead: 0,
+    apiID: '',
+    userID:''
   }
 
   resetForm() {
@@ -71,49 +79,51 @@ export class DashboardComponent implements OnInit {
     return 'Not Yet'
   }
   addBook() {
-    
-      this.book.id = ''
-      this.book.title = this.selected.volumeInfo.title;
-      this.book.author = this.selected.volumeInfo.authors;
-      this.book.done = this.checkRead();
-      this.book.apiID=this.selected.id;
-      console.log(this.book.title)
-      this.data.addBook(this.book)
-      this.resetForm();
-    
+    this.book.id = ''
+    this.book.title = this.selected.volumeInfo.title;
+    this.book.author = this.selected.volumeInfo.authors;
+    this.book.done = this.checkRead();
+    this.book.apiID = this.selected.id;
+    this.book.userID=this.userID;
+    console.log(this.book.title)
+    this.data.addBook(this.book)
+    this.resetForm();
+
 
   }
   deleteBook(book: Book) {
     if (window.confirm("Are you sure?"))
       this.data.deleteBook(book)
   }
-    newTitle:string=''
-    newAuthor:string=''
+  newTitle: string = ''
+  newAuthor: string = ''
 
-  getBookInfo(book:Book){
-    console.log("getting Books: "+book.id)
-    this.router.navigate(['/bookInfo',book.id])
+  getBookInfo(book: Book) {
+    console.log("getting Books: " + book.id)
+    this.router.navigate(['/bookInfo', book.id])
   }
 
   fetchBook(): void {
-    this.api.getBooks('intitle:'+this.query).subscribe((data: any) => {
-     this.apiBooks=data.items;
+    this.api.getBooks('intitle:' + this.query).subscribe((data: any) => {
+      this.apiBooks = data.items;
     });
   }
 
-  updateBook(book:Book){
-    if(book.done=="Read")
-      book.done="Not Yet"
+  updateBook(book: Book) {
+    if (book.done == "Read")
+      book.done = "Not Yet"
     else
-      book.done="Read";
+      book.done = "Read";
     this.data.updateBook(book)
   }
 
-  onSelected(value:string){
-    this.selected=value;
+  onSelected(value: string) {
+    this.selected = value;
     console.log(this.selected.volumeInfo)
   }
-    
-    
+
+  logout() {
+    this.auth.logout();
   }
+}
 

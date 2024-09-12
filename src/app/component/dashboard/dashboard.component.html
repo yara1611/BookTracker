@@ -1,5 +1,6 @@
 <div class="container-fluid">
     <div class="row">
+      <button type="button" (click)="logout()" style="max-width:fit-content;">Log Out</button>
         <div class="col-md-4 mt-5">
             <div class="card border-0 shadow p-3">
               <h5>Add A Book</h5>
@@ -21,7 +22,7 @@
             
         </div>
         <div class="col-md-8 mt-5">
-            <h5 class="text-danger">My Books</h5>
+            <h5 class="text-danger">{{this.user}}'s Books</h5>
             <div class="card p-3">
                 <div class="card-body">
                     <table class="table">

@@ -4,5 +4,6 @@ export interface Book {
     author: string,
     done: string,
     pagesRead:number,
-    apiID:string
+    apiID:string,
+    userID:string
 }
